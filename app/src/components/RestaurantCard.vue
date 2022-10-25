@@ -1,37 +1,39 @@
-<script lang="ts">
+<script lang="ts" setup>
 
-import { defineComponent } from 'vue';
-import type { PropType } from 'vue';
 import type { Restaurant } from '@/types';
+import { computed } from '@vue/reactivity';
 
-export default defineComponent({
-  props: {
-    restaurant: {
-      type: Object as PropType<Restaurant>,
-      required: true,
-    },
-  },
-  emits: ['delete-restaurant'],
-  computed: {
-    statusColor() {
-      switch (this.restaurant.status) {
-        case 'Want to Try':
-          return 'is-warning'
-        case 'Recommended':
-          return 'is-success'
-        case 'Do Not Recommend':
-          return 'is-danger'
-        default:
-          return ''
-      }
-    },
-  },
-  methods: {
-    deleteRestaurant() {
-      this.$emit('delete-restaurant', this.restaurant)
-    },
-  },
-})
+type PropTypes = {
+  restaurant: Restaurant
+};
+
+const { restaurant } = defineProps<PropTypes>()
+
+//defineEmits(['delete-restaurant']);
+const emits = defineEmits<{
+  (e: 'delete-restaurant', restaurant: Restaurant): void
+}>();
+
+const statusColor = computed(() => {
+  if (restaurant) {
+    switch (restaurant.status) {
+      case 'Want to Try':
+        return 'is-warning'
+      case 'Recommended':
+        return 'is-success'
+      case 'Do Not Recommend':
+        return 'is-danger'
+      default:
+        return ''
+    }
+  }
+});
+
+
+const deleteRestaurant = () => {
+  emits('delete-restaurant', restaurant);
+}
+
 </script>
 
 <template>

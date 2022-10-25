@@ -1,7 +1,9 @@
-<script>
-import { v4 as uuidv4 } from 'uuid'
+<script lang="ts">
+import { v4 as uuidv4 } from 'uuid';
+import { defineComponent } from 'vue';
+import { restaurantStatusList } from '@/constants';
 
-export default {
+export default defineComponent({
   emits: ['add-new-restaurant', 'cancel-new-restaurant'],
   data: () => ({
     newRestaurant: {
@@ -11,8 +13,9 @@ export default {
       website: '',
       status: 'Want to Try',
     },
+    restaurantStatusList
   }),
-}
+})
 </script>
 
 <template>
@@ -21,15 +24,8 @@ export default {
       <div class="field">
         <label for="name" class="label">Name</label>
         <div class="control">
-          <input
-            :value="newRestaurant.name"
-            @keyup.space="updateName"
-            type="text"
-            class="input is-large"
-            placeholder="Beignet and the Jets"
-            required
-            ref="elNameInput"
-          />
+          <input :value="newRestaurant.name" @keyup.space="updateName" type="text" class="input is-large"
+            placeholder="Beignet and the Jets" required ref="elNameInput" />
         </div>
       </div>
       <div class="field">
@@ -58,4 +54,6 @@ export default {
   </form>
 </template>
 
-<style></style>
+<style>
+
+</style>
