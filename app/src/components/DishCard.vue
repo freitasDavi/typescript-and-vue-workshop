@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { defineComponent } from "vue";
-import type { PropType } from "vue";
 import type { Dish } from "@/types";
 import { computed } from "@vue/reactivity";
 
